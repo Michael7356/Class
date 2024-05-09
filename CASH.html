@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=10.0, user-scalable=yes"/>
+        <title>收銀系統-閹割版</title> 
+    </head>
+    <body>
+        <h1 style="padding:4px;margin:auto;position:absolute;font-size:40px;border: 3px solid black;border-radius:4px;background-color:white;">收銀系統-209</h1>
+        <div class="container1">
+            <h3>購買清單</h3>
+            <ul>
+                <li class="totallist">烤香腸 x<span id="input-sausage"></span></li>
+                <li class="totallist">烤豬肉串 x<span id="input-pork"></span></li>
+                <li class="totallist">烤牛肉串 x<span id="input-beaf"></span></li>
+                <li class="totallist">烤雞肉串 x<span id="input-chicken"></span></li>
+                <li class="totallist">炒泡麵 x<span id="input-noodles"></span></li>
+                <li class="totallist">炒泡麵加蛋 x<span id="input-eggnoodles"></span></li>
+                <li class="totallist">薯餅 x<span id="input-potato"></span></li>
+                <li class="totallist">套餐A x<span id="input-A"></span></li>
+                <li class="totallist">套餐B x<span id="input-B"></span></li>
+                <li class="totallist">套餐C x<span id="input-C"></span></li>
+                <li class="totallist">套餐D x<span id="input-D"></span></li>
+            </ul>
+        </div>
+        <div class="container">
+            <ul>
+                <button class="button" id="sausage">烤香腸</button>
+                <button class="button" id="pork">烤豬肉串</button>
+                <button class="button" id="beaf">烤牛肉串</button>
+                <button class="button" id="chicken">烤雞肉串</button>
+                <button class="button" id="noodles">炒泡麵</button>
+                <button class="button" id="eggnoodles">炒泡麵加蛋</button>
+                <button class="button" id="potato">薯餅</button>
+                <button class="button" id="A">套餐A</button>
+                <button class="button" id="B">套餐B</button>
+                <button class="button" id="C">套餐C</button>
+                <button class="button" id="D">套餐D</button>
+            </ul>
+        </div>
+        <hr>
+        <h1>總計金額:<span id="totalmoney"></span></h1>
+        <h1>收到:<input type="number" id="input"></h1>
+        <h1>找零:<span id="change"></span></h1>
+        <button id="clear">結帳</button>
+        <button class="income" id="income">總收入</button>
+    </body>
+</html>
+
+<style>
+    @keyframes change-color{
+    0%{background-color: red;top:10px;left:10px};
+    16%{background-color: orange;top:20px;left:20px};
+    32%{background-color: yellow;top:30px;left:30px;}
+    48%{background-color: green;top:20px;left:20px;}
+    64%{background-color: blue;top:10px;left:10px;}
+    80%{background-color: rgb(53, 48, 150);}
+    100%{background-color: purple;}
+}
+body{
+    background:linear-gradient(180deg,rgb(230, 230, 230)0%,rgb(233, 233, 233)100%);
+    min-height:100vh;
+}
+
+.container{
+    vertical-align: middle;
+    text-align: center;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.button{
+    position:relative;
+    display:flex;
+    flex-wrap:nowrap;
+    flex-direction: column;
+    font-size:42px;
+    border: 3px solid black;
+    border-radius: 10px;
+    margin:20px;
+    padding:4px;
+    cursor: pointer;
+    width:300px;
+    box-sizing: border-box;
+}
+
+.container1{
+    position:fixed;
+    right:10px;
+    margin: auto 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 30px;
+    text-align: center;
+}
+.totallist{
+    list-style-type: none;
+    text-align: center;
+}
+
+li{
+    font-size: 25px;
+    text-align: center;
+    padding:4px;
+}
+
+.income,#clear{
+    margin:4px;
+    font-size: 30px;
+    border: 2px solid black;
+    border-radius: 10px;
+    cursor:pointer;
+}
+
+.income:hover{
+    animation: change-color 1s;
+    animation-iteration-count: infinite;
+}
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+  let mymoney = 0;
+  const takeout = localStorage.getItem("income");
+  if (takeout !== null) {
+    mymoney = JSON.parse(takeout);
+  }
+  let total = 0;
+  let passsau = 0;
+  let passpork = 0;
+  let passbeaf = 0;
+  let passchick = 0;
+  let passnoo = 0;
+  let passegg = 0;
+  let passpotato = 0;
+  let passD = 0;
+  let passC = 0;
+  let passB = 0;
+  let passA = 0;
+  const sausage = document.getElementById("sausage");
+  sausage.addEventListener("click", function () {
+    var q = prompt("數量", "最多10");
+
+    if (q != null && q <= 10 &&q>0) {
+      document.getElementById("input-sausage").textContent = q;
+      total += (q - passsau) * 35;
+      passsau = q;
+      totalmoney.textContent = total;
+    } else if (q > 10) {
+      alert("too much");
+    } else {
+      alert("Try again");
+    }
+  });
+
+  const pork = document.getElementById("pork");
+  pork.addEventListener("click", function () {
+    var q = prompt("數量", "最多10");
+
+    if (q != null && q <= 10&&q>0) {
+      document.getElementById("input-pork").textContent = q;
+      total += (q - passpork) * 35;
+      passpork = q;
+      totalmoney.textContent = total;
+    } else if (q > 10) {
+      alert("too much");
+    } else {
+      alert("Try again");
+    }
+  });
+
+  const beaf = document.getElementById("beaf");
+  beaf.addEventListener("click", function () {
+    var q = prompt("數量", "最多10");
+
+    if (q != null && q <= 10&&q>0) {
+      document.getElementById("input-beaf").textContent = q;
+      total += (q - passbeaf) * 35;
+      passbeaf = q;
+      totalmoney.textContent = total;
+    } else if (q > 10) {
+      alert("too much");
+    } else {
+      alert("Try again");
+    }
+  });
+
+  const chicken = document.getElementById("chicken");
+  chicken.addEventListener("click", function () {
+    var q = prompt("數量", "最多10");
+
+    if (q != null && q <= 10&&q>0) {
+      document.getElementById("input-chicken").textContent = q;
+      total += (q - passchick) * 35;
+      passchick = q;
+      totalmoney.textContent = total;
+    } else if (q > 10) {
+      alert("too much");
+    } else {
+      alert("Try again");
+    }
+  });
+
+  const noodles = document.getElementById("noodles");
+  noodles.addEventListener("click", function () {
+    var q = prompt("數量", "最多10");
+
+    if (q != null && q <= 10&&q>0) {
+      document.getElementById("input-noodles").textContent = q;
+      total += (q - passnoo) * 35;
+      passnoo = q;
+      totalmoney.textContent = total;
+    } else if (q > 10) {
+      alert("too much");
+    } else {
+      alert("Try again");
+    }
+  });
+
+  const eggnoodles = document.getElementById("eggnoodles");
+  eggnoodles.addEventListener("click", function () {
+    var q = prompt("數量", "最多10");
+
+    if (q != null && q <= 10&&q>0) {
+      document.getElementById("input-eggnoodles").textContent = q;
+      total += (q - passegg) * 35;
+      passegg = q;
+      totalmoney.textContent = total;
+    } else if (q > 10) {
+      alert("too much");
+    } else {
+      alert("Try again");
+    }
+  });
+
+  const potato = document.getElementById("potato");
+  potato.addEventListener("click", function () {
+    var q = prompt("數量", "最多10");
+
+    if (q != null && q <= 10&&q>0) {
+      document.getElementById("input-potato").textContent = q;
+      total += (q - passpotato) * 35;
+      passpotato = q;
+      totalmoney.textContent = total;
+    } else if (q > 10) {
+      alert("too much");
+    } else {
+      alert("Try again");
+    }
+  });
+
+  const A = document.getElementById("A");
+  A.addEventListener("click", function () {
+    var q = prompt("數量", "最多10");
+
+    if (q != null && q <= 10&&q>0) {
+      document.getElementById("input-A").textContent = q;
+      total += (q - passA) * 35;
+      passA = q;
+      totalmoney.textContent = total;
+    } else if (q > 10) {
+      alert("too much");
+    } else {
+      alert("Try again");
+    }
+  });
+
+  const B = document.getElementById("B");
+  B.addEventListener("click", function () {
+    var q = prompt("數量", "最多10");
+
+    if (q != null && q <= 10&&q>0) {
+      document.getElementById("input-B").textContent = q;
+      total += (q - passB) * 35;
+      passB = q;
+      totalmoney.textContent = total;
+    } else if (q > 10) {
+      alert("too much");
+    } else {
+      alert("Try again");
+    }
+  });
+
+  const C = document.getElementById("C");
+  C.addEventListener("click", function () {
+    var q = prompt("數量", "最多10");
+
+    if (q != null && q <= 10&&q>0) {
+      document.getElementById("input-C").textContent = q;
+      total += (q - passC) * 35;
+      passC = q;
+      totalmoney.textContent = total;
+    } else if (q > 10) {
+      alert("too much");
+    } else {
+      alert("Try again");
+    }
+  });
+
+  const D = document.getElementById("D");
+  D.addEventListener("click", function () {
+    var q = prompt("數量", "最多10");
+
+    if (q != null && q <= 10&&q>0) {
+      document.getElementById("input-D").textContent = q;
+      total += (q - passD) * 35;
+      passD = q;
+      totalmoney.textContent = total;
+    } else if (q > 10) {
+      alert("too much");
+    } else {
+      alert("Try again");
+    }
+  });
+
+  const input = document.getElementById("input");
+  input.addEventListener("keypress", function (event) {
+    if (event.key === "Enter" && input.value.trim() !== "")
+      if (input.value < total) {
+        alert("Try again");
+      } else {
+        const change = document.getElementById("change");
+        change.textContent = input.value - total;
+        input.value = "";
+      }
+  });
+
+  const income = document.getElementById("income");
+  income.addEventListener("click", function () {
+    alert(`目前總收入為${mymoney}元`);
+  });
+
+  const clear = document.getElementById("clear");
+  clear.addEventListener("click", function () {
+    mymoney += total;
+    document.getElementById("input-sausage").textContent = "";
+    document.getElementById("input-pork").textContent = "";
+    document.getElementById("input-beaf").textContent = "";
+    document.getElementById("input-chicken").textContent = "";
+    document.getElementById("input-noodles").textContent = "";
+    document.getElementById("input-eggnoodles").textContent = "";
+    document.getElementById("input-potato").textContent = "";
+    document.getElementById("input-A").textContent = "";
+    document.getElementById("input-D").textContent = "";
+    document.getElementById("input-C").textContent = "";
+    document.getElementById("input-B").textContent = "";
+    document.getElementById("change").textContent = "";
+    document.getElementById("totalmoney").textContent = "";
+    localStorage.setItem("income", mymoney);
+  });
+});
+</script>
