@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=10.0, user-scalable=yes"/>
+        <title>收銀系統-閹割版</title>
+        <link rel="stylesheet" href="class.css"/>
+        <script src="class.js"></script>
+    </head>
+    <body>
+        <h1 style="padding:4px;margin:auto;position:absolute;font-size:40px;border: 3px solid black;border-radius:4px;background-color:white;">收銀系統-209</h1>
+        <div class="container1">
+            <h3>購買清單</h3>
+            <ul>
+                <li class="totallist">烤香腸 x<span id="input-sausage"></span></li>
+                <li class="totallist">烤豬肉串 x<span id="input-pork"></span></li>
+                <li class="totallist">烤牛肉串 x<span id="input-beaf"></span></li>
+                <li class="totallist">烤雞肉串 x<span id="input-chicken"></span></li>
+                <li class="totallist">炒泡麵 x<span id="input-noodles"></span></li>
+                <li class="totallist">炒泡麵加蛋 x<span id="input-eggnoodles"></span></li>
+                <li class="totallist">薯餅 x<span id="input-potato"></span></li>
+                <li class="totallist">套餐A x<span id="input-A"></span></li>
+                <li class="totallist">套餐B x<span id="input-B"></span></li>
+                <li class="totallist">套餐C x<span id="input-C"></span></li>
+                <li class="totallist">套餐D x<span id="input-D"></span></li>
+            </ul>
+        </div>
+        <div class="container">
+            <ul>
+                <button class="button" id="sausage">烤香腸</button>
+                <button class="button" id="pork">烤豬肉串</button>
+                <button class="button" id="beaf">烤牛肉串</button>
+                <button class="button" id="chicken">烤雞肉串</button>
+                <button class="button" id="noodles">炒泡麵</button>
+                <button class="button" id="eggnoodles">炒泡麵加蛋</button>
+                <button class="button" id="potato">薯餅</button>
+                <button class="button" id="A">套餐A</button>
+                <button class="button" id="B">套餐B</button>
+                <button class="button" id="C">套餐C</button>
+                <button class="button" id="D">套餐D</button>
+            </ul>
+        </div>
+        <hr>
+        <h2>總計金額:<span id="totalmoney"></span></h2>
+        <h2>收到:<input type="number" id="input"></h2>
+        <h1>找零:<span id="change"></span></h1>
+        <button id="clear">結帳</button>
+        <button class="income" id="income">總收入</button>
+    </body>
+</html>
