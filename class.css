@@ -68,3 +68,6 @@ li{
     animation-iteration-count: infinite;
 }
 
+.button:hover,#clear:hover{
+    background-color: gray;
+}
